@@ -2,12 +2,12 @@
 {% load static %}
 {% block content %}
     <div class="container">
-        <div class="row home ">
+        <div class="row home">
             <div class="col-lg-12 text-center my-auto">
 
-                <small class="s-color">Welcome to my portfolio website!</small>
+                <small class="s-color">Portfolio saytga xush kelibsiz!</small>
                 <div class="animated">
-                    Hey, I'm<br>
+                    Salom, men<br>
                     <span class="color-primary" id="animated-name"></span>
                 </div>
                 <div class="row justify-content-center">
@@ -35,26 +35,23 @@
                 </div>
                 {% include 'nav.html' %}
             </div>
-            
-            
         </div>
         <a href="/#education" class="scroll__down">
             <span class="scroll__mouse">
-                
                 <span class="scroll__wheel"></span>
             </span>
         </a>
 
-        <!-- Experiences and Education -->
+        <!-- Tajriba va Ta'lim -->
         {% include 'experiences_and_education.html' %}
 
-        <!-- Languages and Tools -->
+        <!-- Tillar va Vositalar -->
         {% include 'languages_and_tools.html' %}
 
-        <!-- Projects -->
+        <!-- Loyihalar -->
         {% include 'projects.html' %}
 
-        <!-- About and Contact -->
+        <!-- Haqimda va Aloqa -->
         {% include 'about_and_contact.html'%}
 
     </div>

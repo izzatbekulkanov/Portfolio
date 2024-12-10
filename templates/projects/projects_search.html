@@ -4,16 +4,15 @@
     <div class="container">
         <div class="row pt-lg-4">
             <div class="col-12 text-center">
-                <p class="display-3 m-0">Search for Projects</p>
-                <p class="text-muted">Search for projects with titles, descriptions, or tools.</p>
-                <a class="text-success" href="{% url 'projectsPage' %}"><i class="fa fa-arrow-circle-left pr-2 mb-4"></i>Projects Page</a>
-
+                <p class="display-3 m-0">Loyihalar qidiruvi</p>
+                <p class="text-muted">Loyiha nomi, tavsifi yoki vositalari bo‘yicha qidiring.</p>
+                <a class="text-success" href="{% url 'projectsPage' %}"><i class="fa fa-arrow-circle-left pr-2 mb-4"></i>Loyihalar sahifasiga qaytish</a>
 
                 <form method="POST" action="{% url 'search' %}" id="search-form">
                     {% csrf_token %}
                     <div class="form-group">
                         <div class="input-group input-group-alternative mb-4">
-                            <input id="search-input" class="form-control form-control-alternative" name="searchText" placeholder="Search for projects title or a tools" type="text" required>
+                            <input id="search-input" class="form-control form-control-alternative" name="searchText" placeholder="Loyiha nomi yoki vositalari bo‘yicha qidiruv" type="text" required>
                             <div class="search-btn" id="search-btn">
                                 <span><i class="fa fa-search"></i></span>
                             </div>
@@ -26,7 +25,7 @@
 
         <hr class="mt-2 mb-4">
         {% if projects %}
-            <p class="text-muted">You search for <strong class="text-success">{{searchText}}</strong></p>
+            <p class="text-muted">Qidiruv natijalari uchun: <strong class="text-success">{{searchText}}</strong></p>
             <div class="row">
                 {% for project in projects %}
                     <div class="col-lg-4 mb-4 ">
@@ -39,9 +38,9 @@
                                     <p class="display-4 m-0">{{project.title|truncatechars:18}}</p>
                                     <p class="h-50 text-muted">{{project.description|truncatechars:80}}</p>
 
-                                    
+
                                     <div class="m-0 mt-4">
-                                        <span class="font-weight-bold text-success"><i class="ni ni-settings pr-2"></i>Tools:</span>
+                                        <span class="font-weight-bold text-success"><i class="ni ni-settings pr-2"></i>Vositalar:</span>
                                         {% with project.tools|split:"," as tools %}
                                             {% for tool in tools %}
                                                 <span class="badge bg-secondary">{{tool}}</span>
@@ -57,7 +56,7 @@
             </div>
         {% else %}
             <div class="text-center">
-                <p class="display-1 text-muted">No Results Found</p>
+                <p class="display-1 text-muted">Natija topilmadi</p>
             </div>
         {% endif %}
     </div>

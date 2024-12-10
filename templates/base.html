@@ -1,10 +1,10 @@
 <!DOCTYPE html>{% load static %}
-<html lang="en">
+<html lang="uz">
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>{% block title %}Abdelaali ES{% endblock title %}</title>
+        <title>{% block title %}IZZATBEK ULKANOV{% endblock title %}</title>
 
         <link rel="shortcut icon" type="image/png" href="{% static 'favicon.svg' %}"/>
 
@@ -29,8 +29,8 @@
 
     </head>
     <body>
-        {% if request.META.HTTP_HOST == 'abdelaali-portfolio.herokuapp.com' %}
-            <meta http-equiv="REFRESH" content="0;url=https://abdelaali.tech/">
+        {% if request.META.HTTP_HOST == 'ulkanov.uz' %}
+            <meta http-equiv="REFRESH" content="0;url=https://ulkanov.tech/">
         {% endif %}
         {% block body %}
             <!-- particles.js container --> 
@@ -51,8 +51,8 @@
                 <hr>
                 <div class="row pb-3 footer">
                     <div class="col-12 text-center">
-                        <p>Copyright © {% now "Y" %} Abdelaali ES SALMI . All rights reserved</p>
-                        <p class="coder">Built with <i class="fa fa-heart text-danger"></i> in Django By <a href="https://github.com/abdlalisalmi">Abdelaali ES SALMI</a></p>
+                        <p>Copyright © {% now "Y" %} Izzatbek Ulkanov . All rights reserved</p>
+                        <p class="coder">Built with <i class="fa fa-heart text-danger"></i> in Django By <a href="https://github.com/izzatbekulkanov">Izzatbek Ulkanov</a></p>
                     </div>
                 </div>
             </div>
@@ -79,16 +79,19 @@
         <script src="{% static "animation.js" %}"></script>
 
         <!-- Costom JS-->
-        <script src='https://cdn.tiny.cloud/1/d50e95ysaxzxlmnygzozwpoz6icwcj5yb9bezny21nx6k8tv/tinymce/5/tinymce.min.js' referrerpolicy="origin">
+        <script src='https://cdn.tiny.cloud/1/xsasq6nac5gkndkyzkr04a8zhfvfvckl49m68p8vxcen2170/tinymce/5/tinymce.min.js' referrerpolicy="origin">
         </script>
         <script>
             tinymce.init({
-            selector: '#form-description',
-            setup: function (editor) {
-                editor.on('change', function () {
-                    editor.save();
-                });
-            }
+                selector: '#form-description',
+                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste help wordcount',
+                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
+                setup: function (editor) {
+                    editor.on('change', function () {
+                        editor.save();
+                    });
+                },
+                height: 300,  // Muharrirning balandligini sozlang
             });
         </script>
         <script src="{% static 'app.js' %}"></script>

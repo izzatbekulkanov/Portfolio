@@ -111,14 +111,14 @@ hr {
   }
 @keyframes animate {
     30%{
-        content: 'Abdelaali ES SALMI';
+        content: 'Izzatbek Ulkanov';
         opacity: 1;
     }
     45%{
         opacity: 0;
     }
     65%{
-        content: 'Programmer';
+        content: 'Dasturchi';
         opacity: 1;
         
     }
