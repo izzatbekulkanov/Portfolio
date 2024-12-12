@@ -12,6 +12,7 @@ from rest_framework import authentication, permissions
 from rest_framework.response import Response
 from rest_framework import status
 
+from info.forms import CreateEducationForm
 from .forms import EditProfileForm, CreateProjectForm
 
 from info.models import Information, Message, Project
@@ -193,4 +194,44 @@ class EducationView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({
+            'success': False,
+            'errors': serializer.errors
+        }, status=status.HTTP_400_BAD_REQUEST)
+
+@login_required()
+def education_api(request):
+    if request.method == 'POST':
+
+        # Create a new education entry
+        if request.POST.get('type') == 'create':
+            form = CreateEducationForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return JsonResponse({'status': 'Create Education Successfully', 'code': 200})
+            else:
+                return JsonResponse({'status': 'Create Education Failed', 'code': 400, 'errors': form.errors})
+
+        # Update an existing education entry
+        elif request.POST.get('type') == 'update':
+            id = int(request.POST.get('id'))
+            if request.POST.get('first', False):
+                education = Education.objects.filter(id=id).values()
+                return JsonResponse({'education': list(education)[0], 'code': 200})
+            else:
+                education = Education.objects.get(id=id)
+                form = CreateEducationForm(request.POST, instance=education)
+                if form.is_valid():
+                    form.save()
+                    return JsonResponse({'status': 'Update Education Successfully', 'code': 200})
+                else:
+                    return JsonResponse({'status': 'Update Education Failed', 'code': 400, 'errors': form.errors})
+            return JsonResponse({'status': 'Education Does Not Exist', 'code': 400})
+
+        # Delete an education entry
+        elif request.POST.get('type') == 'delete':
+            id = int(request.POST.get('id'))
+            Education.objects.filter(id=id).delete()
+            return JsonResponse({'status': 'Remove Education Successfully', 'code': 200})
+
+    return JsonResponse({'status': 'Bad Request'})

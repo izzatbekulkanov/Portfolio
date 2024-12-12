@@ -6,60 +6,60 @@
 <div class="container">
     <div class="row">
         <div class="col-6">
-            <div class="dashboard-title">Education</div>
-            <small>Manage your education</small>
+            <div class="dashboard-title">Ta'lim</div>
+            <small>Ta'limingizni boshqaring</small>
         </div>
         
         <div class="col-6">
             <div class="create-one" id="display-create-form">
-                Create One
+                Yangi qo'shish
             </div>
         </div>
     </div>
     <hr class="mt-2">
 
 
-    <div class="create-project-form hide">
-        <form>
+    <div class="create-education-form hide">
+        <form id="education-form">
             <div class="form-group">
-                <lable>Title</lable>
-                <input type="text" class="form-control" id="form-title" placeholder="Education title">
+                <label>Sarlavha</label>
+                <input type="text" class="form-control" id="form-title" placeholder="Ta'lim sarlavhasi">
             </div>
             <div class="form-group">
-                <lable>Description</lable>
-                <textarea class="form-control" id="form-description" rows="10" placeholder="Education description"></textarea>
+                <label>Tavsif</label>
+                <textarea class="form-control" id="form-description" rows="10" placeholder="Ta'lim tavsifi"></textarea>
             </div>
             <div class="form-group">
-                <lable>Date</lable>
+                <label>Sana</label>
                 <div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text"><i class="uil uil-calendar-alt"></i></span>
                     </div>
-                    <input type="text" class="form-control" id="form-date" placeholder="Education year">
+                    <input type="date" class="form-control" id="form-date" placeholder="Ta'lim yili">
                 </div>
             </div>
         </form>
         <div class="modal-footer">
-            <a class="submit-project" id="creat-project-btn">
+            <a class="submit-education" id="creat-education-btn">
                 <img src="{% static 'img/save-icon.svg' %}" width='25px'>
-                Save
+                Saqlash
             </a>
-            <a class="submit-project" id="submit-update-project">
+            <a class="submit-education" id="submit-update-education">
                 <img src="{% static 'img/edit-icon.svg' %}" width='25px'>
-                Update
+                Yangilash
             </a>
 
-            <a class="cancel-edit-project" id="display-create-form">
+            <a class="cancel-edit-education" id="display-create-form">
                 <img src="{% static 'img/close-icon.svg' %}" width='25px'>
-                Close
+                Yopish
             </a>
         </div>
 
     </div>
 
     <div class="row">
-        {% comment %} <div class="ml-3 mt-4 h5">Projects</div> {% endcomment %}
-        <div class="col-12 dashboard-projects-list">
+        {% comment %} <div class="ml-3 mt-4 h5">Loyihalar</div> {% endcomment %}
+        <div class="col-12 dashboard-educations-list">
             {% for edu in education %}
                 <div class="row item">
                     <div class="col-3 item-name">
@@ -78,5 +78,54 @@
     </div>
     
 </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+    const createEducationBtn = document.querySelector('#create-education-btn');
+    const formTitle = document.querySelector('#form-title');
+    const formDescription = document.querySelector('#form-description');
+    const formDate = document.querySelector('#form-date');
+    const createForm = document.querySelector('.create-education-form');
+    const closeForm = document.querySelector('#close-create-form');
+
+    if (createEducationBtn) {
+        createEducationBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            let formData = new FormData();
+            formData.append('type', 'create');
+            formData.append('title', formTitle.value);
+            formData.append('description', formDescription.value);
+            formData.append('the_year', formDate.value);
+
+            fetch('/dashboard/education/api/', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': csrftoken
+                },
+                credentials: 'same-origin',
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.code === 200) {
+                        alert('Ta\'lim muvaffaqiyatli qo\'shildi!');
+                        location.reload();
+                    } else {
+                        console.error(data.errors);
+                        alert('Xatolik yuz berdi. Iltimos, ma\'lumotlarni qayta tekshiring.');
+                    }
+                })
+                .catch((error) => console.error('Error:', error));
+        });
+    }
+
+    if (closeForm) {
+        closeForm.addEventListener('click', (e) => {
+            e.preventDefault();
+            createForm.classList.toggle('hide');
+        });
+    }
+});
+    </script>
 
 {% endblock dashboardContent %}

@@ -3,9 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <title>{% block title %}IZZATBEK ULKANOV{% endblock title %}</title>
-
         <link rel="shortcut icon" type="image/png" href="{% static 'favicon.svg' %}"/>
 
         <!-- Fonts -->
@@ -16,102 +14,93 @@
         <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v3.0.6/css/line.css">
 
+        <!-- Perfect Scrollbar CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.5/css/perfect-scrollbar.min.css">
 
         <!-- Argon CSS -->
         <link type="text/css" href="{% static 'css/argon-design-system.min.css' %}" rel="stylesheet">
 
-        <!-- Costom CSS -->
+        <!-- Custom CSS -->
         <link type="text/css" href="{% static 'app.css' %}" rel="stylesheet">
         <link type="text/css" href="{% static 'animation.css' %}" rel="stylesheet">
-        
         <link type="text/css" href="{% static 'slider.css' %}" rel="stylesheet">
         {% block style %}{% endblock style %}
-
     </head>
     <body>
-        {% if request.META.HTTP_HOST == 'ulkanov.uz' %}
-            <meta http-equiv="REFRESH" content="0;url=https://ulkanov.tech/">
-        {% endif %}
         {% block body %}
-            <!-- particles.js container --> 
-            <div id="particles-js">
-                <canvas class="particles-js-canvas-el" width="1874" height="1998" style="width: 100%; height: 100%;"></canvas>
-            </div> 
-            {% comment %} {% include 'navbar.html' %} {% endcomment %}
-            {% block content %}
-            {% endblock content %}
+        <!-- particles.js container -->
+        <div id="particles-js"></div>
 
-            <!-- Back to top button -->
-            {% comment %} <a id="Back-to-top-button"><i class="fa fa-angle-up fa-3x"></i></a> {% endcomment %}
-            <a id="Back-to-top-button">
-                <img class="" src="{% static 'img/rocket.svg' %}" >
-            </a>
+        {% block content %}
+        {% endblock content %}
 
-            <div class="container">
-                <hr>
-                <div class="row pb-3 footer">
-                    <div class="col-12 text-center">
-                        <p>Copyright © {% now "Y" %} Izzatbek Ulkanov . All rights reserved</p>
-                        <p class="coder">Built with <i class="fa fa-heart text-danger"></i> in Django By <a href="https://github.com/izzatbekulkanov">Izzatbek Ulkanov</a></p>
-                    </div>
+        <!-- Back to top button -->
+        <a id="Back-to-top-button">
+            <img src="{% static 'img/rocket.svg' %}" >
+        </a>
+
+        <div class="container">
+            <hr>
+            <div class="row pb-3 footer">
+                <div class="col-12 text-center">
+                    <p>Copyright © {% now "Y" %} Izzatbek Ulkanov . All rights reserved</p>
+                    <p class="coder">Built with <i class="fa fa-heart text-danger"></i> in Django By <a href="https://github.com/izzatbekulkanov">Izzatbek Ulkanov</a></p>
                 </div>
             </div>
+        </div>
         {% endblock body %}
 
         <!-- Core -->
-        <script src="{% static 'js/core/jquery.min.js' %}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.perfect-scrollbar/1.5.5/perfect-scrollbar.min.js"></script>
         <script src="{% static 'js/core/popper.min.js' %}"></script>
         <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
-
-        <!-- Optional plugins -->
 
         <!-- Argon JS -->
         <script src="{% static 'js/argon-design-system.js' %}"></script>
 
+        <!-- Particles.js -->
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 
-        <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-        <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-
-        <script src='https://www.google.com/recaptcha/api.js'></script>
-
-        <!-- stats.js lib --> 
-        <script src="http://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script> 
-        <script src="{% static "animation.js" %}"></script>
-
-        <!-- Costom JS-->
-        <script src='https://cdn.tiny.cloud/1/xsasq6nac5gkndkyzkr04a8zhfvfvckl49m68p8vxcen2170/tinymce/5/tinymce.min.js' referrerpolicy="origin">
-        </script>
+        <!-- Custom JS -->
+        <script src="{% static 'animation.js' %}"></script>
         <script>
-            tinymce.init({
-                selector: '#form-description',
-                plugins: 'advlist autolink lists link image charmap preview anchor searchreplace visualblocks code fullscreen insertdatetime media table paste help wordcount',
-                toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | removeformat | help',
-                setup: function (editor) {
-                    editor.on('change', function () {
-                        editor.save();
-                    });
-                },
-                height: 300,  // Muharrirning balandligini sozlang
+            // Initialize Perfect Scrollbar
+            $(document).ready(function () {
+                if ($('.scrollable-element').length) {
+                    $('.scrollable-element').perfectScrollbar();
+                }
             });
-        </script>
-        <script src="{% static 'app.js' %}"></script>
-        <script>
-            var btn = $('#Back-to-top-button');
 
-            $(window).scroll(function() {
-            if ($(window).scrollTop() > 300) {
-                btn.addClass('show');
-            } else {
-                btn.removeClass('show');
+            // Initialize Particles.js
+            if (document.getElementById('particles-js')) {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#ffffff" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5 },
+                        size: { value: 3 },
+                        line_linked: { enable: true, distance: 150, color: "#ffffff", opacity: 0.4, width: 1 },
+                        move: { enable: true, speed: 6 }
+                    }
+                });
             }
-            });
 
-            btn.on('click', function(e) {
-            e.preventDefault();
-            $('html, body').animate({scrollTop:0}, '300');
+            // Back-to-top button
+            var btn = $('#Back-to-top-button');
+            $(window).scroll(function () {
+                if ($(window).scrollTop() > 300) {
+                    btn.addClass('show');
+                } else {
+                    btn.removeClass('show');
+                }
+            });
+            btn.on('click', function (e) {
+                e.preventDefault();
+                $('html, body').animate({ scrollTop: 0 }, '300');
             });
         </script>
-        {% block script %}
-        {% endblock script %}
+        {% block script %}{% endblock script %}
     </body>
 </html>

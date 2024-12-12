@@ -1,0 +1,14 @@
+version: '3.9'
+
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8008:8000"
+    environment:
+      - DEBUG=1
+      - DJANGO_ALLOWED_HOSTS=my.ulkanov.uz,localhost,127.0.0.1
